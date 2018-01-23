@@ -1,0 +1,29 @@
+// This file is part of coursework 2 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/**
+ * Memory of 64 registers, each 16 bit-wide. Out hold the value
+ * stored at the memory location specified by address. If load=1, then
+ * the x value is loaded into the memory location specified by address
+ * (the loaded value will be emitted to out after the next time step.)
+ */
+
+CHIP RAM64 {
+    IN x[16], load, address[6];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=load, sel[0..2]=address[0..2], s=a, t=b, u=c, v=d, w=e, x=f, y=g, z=h);
+    RAM8(x[0..15]=x[0..15], load=a, address=address[3..5], out[0..15]=ram8out1);
+    RAM8(x[0..15]=x[0..15], load=b, address=address[3..5], out[0..15]=ram8out2);
+    RAM8(x[0..15]=x[0..15], load=c, address=address[3..5], out[0..15]=ram8out3);
+    RAM8(x[0..15]=x[0..15], load=d, address=address[3..5], out[0..15]=ram8out4);
+    RAM8(x[0..15]=x[0..15], load=e, address=address[3..5], out[0..15]=ram8out5);
+    RAM8(x[0..15]=x[0..15], load=f, address=address[3..5], out[0..15]=ram8out6);
+    RAM8(x[0..15]=x[0..15], load=g, address=address[3..5], out[0..15]=ram8out7);
+    RAM8(x[0..15]=x[0..15], load=h, address=address[3..5], out[0..15]=ram8out8);
+    Mux8Way16(s[0..15]=ram8out1, t[0..15]=ram8out2, u[0..15]=ram8out3, v[0..15]=ram8out4, w[0..15]=ram8out5, x[0..15]=ram8out6, y[0..15]=ram8out7, z[0..15]=ram8out8, sel[0..2]=address[0..2],out[0..15]=out);
+
+}

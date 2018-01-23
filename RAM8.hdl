@@ -1,0 +1,30 @@
+// This file is part of coursework 2 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/**
+ * Memory of 8 registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load=1, then
+ * the x value is loaded into the memory location specified by address
+ * (the loaded value will be emitted to out after the next time step.)
+ */
+
+CHIP RAM8 {
+    IN x[16], load, address[3];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=load, sel=address[0..2], s=a, t=b, u=c, v=d, w=e, x=f, y=g, z=h);
+    Register(x[0..15]=x[0..15], load=a, out[0..15]=reg1out);
+    Register(x[0..15]=x[0..15], load=b, out[0..15]=reg2out);
+    Register(x[0..15]=x[0..15], load=c, out[0..15]=reg3out);
+    Register(x[0..15]=x[0..15], load=d, out[0..15]=reg4out);
+    Register(x[0..15]=x[0..15], load=e, out[0..15]=reg5out);
+    Register(x[0..15]=x[0..15], load=f, out[0..15]=reg6out);
+    Register(x[0..15]=x[0..15], load=g, out[0..15]=reg7out);
+    Register(x[0..15]=x[0..15], load=h, out[0..15]=reg8out);
+    Mux8Way16(s[0..15]=reg1out, t[0..15]=reg2out, u[0..15]=reg3out, v[0..15]=reg4out, w[0..15]=reg5out, x[0..15]=reg6out, y[0..15]=reg7out, z[0..15]=reg8out, sel[0..2]=address[0..2],out[0..15]=out);
+
+
+}

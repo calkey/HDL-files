@@ -1,0 +1,29 @@
+// This file is part of coursework 2 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/**
+ * Memory of 4K registers, each 16 bit-wide. Out hold the value
+ * stored at the memory location specified by address. If load=1, then
+ * the x value is loaded into the memory location specified by address
+ * (the loaded value will be emitted to out after the next time step.)
+ */
+
+CHIP RAM4K {
+    IN x[16], load, address[12];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=load, sel=address[0..2], s=a, t=b, u=c, v=d, w=e, x=f, y=g, z=h);
+    RAM512(x[0..15]=x[0..15], load=a, address=address[3..11], out[0..15]=ram512out1);
+    RAM512(x[0..15]=x[0..15], load=b, address=address[3..11], out[0..15]=ram512out2);
+    RAM512(x[0..15]=x[0..15], load=c, address=address[3..11], out[0..15]=ram512out3);
+    RAM512(x[0..15]=x[0..15], load=d, address=address[3..11], out[0..15]=ram512out4);
+    RAM512(x[0..15]=x[0..15], load=e, address=address[3..11], out[0..15]=ram512out5);
+    RAM512(x[0..15]=x[0..15], load=f, address=address[3..11], out[0..15]=ram512out6);
+    RAM512(x[0..15]=x[0..15], load=g, address=address[3..11], out[0..15]=ram512out7);
+    RAM512(x[0..15]=x[0..15], load=h, address=address[3..11], out[0..15]=ram512out8);
+    Mux8Way16(s[0..15]=ram512out1, t[0..15]=ram512out2, u[0..15]=ram512out3, v[0..15]=ram512out4, w[0..15]=ram512out5, x[0..15]=ram512out6, y[0..15]=ram512out7, z[0..15]=ram512out8, sel[0..2]=address[0..2],out[0..15]=out);
+
+}
