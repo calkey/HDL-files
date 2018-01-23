@@ -1,0 +1,21 @@
+// This file is part of coursework 1 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/**
+ * Or gate:
+ * result = 1 if (x==1 or y==1),
+ *          0 otherwise
+ */
+
+CHIP Or {
+    IN x, y;
+    OUT out;
+
+    PARTS:
+    Nand(x=x, y=x, out=temp1);
+    Nand(x=y, y=y, out=temp2);
+    Nand(x=temp1, y=temp2, out=out);
+
+}

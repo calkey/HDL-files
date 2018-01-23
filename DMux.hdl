@@ -1,0 +1,23 @@
+// This file is part of coursework 1 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/**
+ * Demultiplexor.
+ * {x,y} = {in,0} if sel == 0
+ *         {0,in} if sel == 1
+ */
+
+CHIP DMux {
+    IN in, sel;
+    OUT x, y;
+
+    PARTS:
+    Nand(x=in, y=sel, out=temp1);
+    Nand(x=sel, y=sel, out=temp2);
+    Nand(x=in, y=temp2, out=temp3);
+    Nand(x=temp3, y=temp3, out=x);
+    Nand(x=temp1, y=temp1, out=y);
+
+}

@@ -1,0 +1,21 @@
+// This file is part of coursework 1 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/**
+ *  Exclusive-or gate:
+ *  out = not ( x == y ).
+ */
+
+CHIP Xor {
+    IN x, y;
+    OUT out;
+
+    PARTS:
+    Nand(x=x, y=y, out=temp1);
+    Nand(x=x, y=temp1, out=temp2);
+    Nand(x=temp1, y=y, out=temp3);
+    Nand(x=temp2, y=temp3, out=out);
+
+}
